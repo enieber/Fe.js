@@ -15,8 +15,22 @@ var fe = (function() {
     quartilInf:quartilInferior,
     quartilMed:quartilMedio,
     quartilSup:quartilSuperior,
+    decilUm:decilUm,
+    decilDois:decilDois,
+    decilCinco:decilCinco,
+    decilNove:decilNove,
+    percentilDez:percentilDez,
+    percentilVinte:percentilVinte,
+    percentilCinquenta:percentilCinquenta,
+    percentilNoventa:percentilNoventa,
+    raizMediaQuadratica:raizMediaQuadratica,
     desvioQ:desvioQuartilico,
+    desvioMedioAbsoluto:desvioMedioAbsoluto,
+    desvioMedianaAbsoluto:desvioMedianaAbsoluto,
     amplitudeQ:amplitudeQuartilitica,
+    amplitudeP:amplitudeentrePercentis,
+    variancia:variancia,
+    desvioPadrao:desvioPadrao
 
 
   };
@@ -56,6 +70,7 @@ var fe = (function() {
       return a;
     }, {});}
     /*mediana*/
+    /*tenho que */
     function mediana (arr){
     	return (tamanho(arr)+1)/2;
     }
@@ -83,13 +98,93 @@ var fe = (function() {
   function quartilSuperior (arr){
   	return 3*(tamanho(arr)+1)/4;
   }
+  /*decilUm*/
+  function decilUm (arr){
+    return (tamanho(arr)+1)/10;
+  }
+  /*decilDois*/
+  function decilDois (arr){
+    return 2*(tamanho+1)/10;
+  }
+  /*decilCinco*/
+  function decilCinco (arr){
+    return 5*(tamanho(arr)+1)/10;
+  }
+  /*decilNove*/
+  function decilNove (arr){
+    return 9*(tamanho(arr)+1)/10;
+  }
+  /*percentilDez*/
+  function percentilDez (tamanho){
+    return 10*(tamanho+1)/100;
+  }
+  /*percentilDez*/
+  function percentilDez (arr){
+    return 10*(tamanho(arr)+1)/100;
+  }
+  /*percentilVinte*/
+  function percentilVinte (arr){
+    return 20*(tamanho(arr)+1)/100;
+  }
+  /*percentilCinquenta*/
+  function percentilCinquenta (arr){
+    return 50*(tamanho(arr)+1)/100;
+  }
+  /*percentilNoventa*/
+  function percentilNoventa (arr){
+    return 90*(tamanho(arr)+1)/100;
+  }
+/*raizMediaQuadratica*/
+function raizMediaQuadratica (arr) {
+    return Math.sqrt(Math.pow(mediaAritmetica(arr), 2));
+  };
   /*desvioQuartilico*/
   function desvioQuartilico (arr){
   	return (quartilSuperior(arr) - quartilInferior(arr))/2;
+  }
+  /*desvioMedioAbsoluto*/
+  function desvioMedioAbsoluto (arr) {
+    return (1/tamanho(arr))*(arr.map(function(elemen) {
+       return Math.abs(elemen - mediaAritmetica(arr));
+       }).reduce(function (a,b){
+      return (a + b) ;
+      })
+    );
+  }
+  /*desvioMedianaAbsoluto*/
+  function desvioMedianaAbsoluto (arr) {
+    return (1/tamanho(arr))*(arr.map(function(elemen) {
+       return Math.abs(elemen - mediana(arr));
+       }).reduce(function (a,b){
+      return (a + b) ;
+      })
+    );
   }
   /*amplitudeQuartilitica*/
   function amplitudeQuartilitica (arr){
   	return (quartilSuperior(arr) - quartilInferior(arr));
   }
+  /*semiAmplitudeentrePercentis*/
+  function semiAmplitudeentrePercentis (arr){
+    return (1/2)*(percentilNoventa(arr) - percentilNoventa(arr));
+  }
+  /*amplitudeentrePercentis*/
+  function amplitudeentrePercentis (arr){
+    return (percentilNoventa(arr) - percentilDez(arr));
+  }
+  /*variancia*/
+  function variancia(arr) {
+    return (1/tamanho(arr))*(arr.map(function(elemen) {
+       return Math.pow((Math.abs(elemen - mediaAritmetica(arr))),(2));
+       }).reduce(function (a,b){
+      return (a + b) ;
+      })
+    );
+  }
+  /*desvioPadrao*/
+  function desvioPadrao(arr) {
+    return Math.sqrt(variancia(arr));
+  }
+
   return fe;
 })();
