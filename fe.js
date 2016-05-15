@@ -1,36 +1,37 @@
 var fe = (function() {
   var fe = {
-    ordenar:ordenarArray,
-    tamanho:tamanho,
-    somatorio:somatorio,
-    produto:produto,
-    mediaA:mediaAritmetica,
-    mediaG:mediaGeometrica,
-    mediaH:mediaHarmonica,
-    moda:moda,
-    mediana:mediana,
-    max:maiorNumero,
-    min:menorNumero,
-    amplitude:amplitudeTotal,
-    quartilInf:quartilInferior,
-    quartilMed:quartilMedio,
-    quartilSup:quartilSuperior,
-    decilUm:decilUm,
-    decilDois:decilDois,
-    decilCinco:decilCinco,
-    decilNove:decilNove,
-    percentilDez:percentilDez,
-    percentilVinte:percentilVinte,
-    percentilCinquenta:percentilCinquenta,
-    percentilNoventa:percentilNoventa,
-    raizMediaQuadratica:raizMediaQuadratica,
-    desvioQ:desvioQuartilico,
-    desvioMedioAbsoluto:desvioMedioAbsoluto,
-    desvioMedianaAbsoluto:desvioMedianaAbsoluto,
-    amplitudeQ:amplitudeQuartilitica,
-    amplitudeP:amplitudeentrePercentis,
-    variancia:variancia,
-    desvioPadrao:desvioPadrao
+    order: ordenarArray,
+    tam: tamanho,
+    soma: somatorio,
+    prod: produto,
+    mediaA: mediaAritmetica,
+    mediaG: mediaGeometrica,
+    mediaH: mediaHarmonica,
+    moda: moda,
+    mediana: mediana,
+    maior: maiorNumero,
+    menor: menorNumero,
+    amplT: amplitudeTotal,
+    amplQ: amplitudeQuartilitica,
+    amplP: amplitudeentrePercentis,
+    sap: semiAmplitudeentrePercentis,
+    q1: quartilInferior,
+    q2: quartilMedio,
+    q3: quartilSuperior,
+    d1: decilUm,
+    d2: decilDois,
+    d5: decilCinco,
+    d9: decilNove,
+    p10: percentilDez,
+    p20: percentilVinte,
+    p50: percentilCinquenta,
+    p90: percentilNoventa,
+    rmq: raizMediaQuadratica,
+    desvioQ: desvioQuartilico,
+    dma: desvioMedioAbsoluto,
+    mda: desvioMedianaAbsoluto,
+    varian: variancia,
+    dp:desvioPadrao
 
 
   };
@@ -153,12 +154,13 @@ function raizMediaQuadratica (arr) {
   }
   /*desvioMedianaAbsoluto*/
   function desvioMedianaAbsoluto (arr) {
-    return (1/tamanho(arr))*(arr.map(function(elemen) {
+    /*return (1/tamanho(arr))*(arr.map(function(elemen) {
        return Math.abs(elemen - mediana(arr));
        }).reduce(function (a,b){
       return (a + b) ;
       })
-    );
+    );*/
+    return null;
   }
   /*amplitudeQuartilitica*/
   function amplitudeQuartilitica (arr){
@@ -175,7 +177,7 @@ function raizMediaQuadratica (arr) {
   /*variancia*/
   function variancia(arr) {
     return (1/tamanho(arr))*(arr.map(function(elemen) {
-       return Math.pow((Math.abs(elemen - mediaAritmetica(arr))),(2));
+       return Math.pow(Math.abs(elemen - mediaAritmetica(arr)),(2));
        }).reduce(function (a,b){
       return (a + b) ;
       })
