@@ -148,9 +148,9 @@ function raizMediaQuadratica (arr) {
     return (1/tamanho(arr))*(arr.map(function(elemen) {
        return Math.abs(elemen - mediaAritmetica(arr));
        }).reduce(function (a,b){
-      return (a + b) ;
+      return (a + b)
       })
-    );
+    )
   }
   /*desvioMedianaAbsoluto*/
   function desvioMedianaAbsoluto (arr) {
