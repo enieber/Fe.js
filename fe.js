@@ -1,4 +1,5 @@
-var fe = (function() {
+fe = (function() {
+  'use strict'
   var fe = {
     order: ordenarArray,
     tam: tamanho,
@@ -31,162 +32,189 @@ var fe = (function() {
     dma: desvioMedioAbsoluto,
     mda: desvioMedianaAbsoluto,
     varian: variancia,
-    dp:desvioPadrao
-
-
-  };
-  /*ordenarArray*/
-  function ordenarArray (arr){
-  return arr.sort(function(a, b) { return a - b; });
-  }
-  /*tamanhoArray*/
-  function tamanho (arr){
-  return arr.length;
-  }
-  /*somatorioArray*/
-  function somatorio (arr) {
-    return arr.reduce(function(a,b){
-      return a + b});
-    }
-    /*produtoArray*/
-    function produto (arr){
-      return arr.reduce(function (a, b) { return a * b })
-    }
-    /*mediaAritmetica*/
-    function mediaAritmetica (arr) {
-            return (somatorio(arr)/tamanho(arr));
-    }
-    /*mediaGeometrica*/
-    function mediaGeometrica (arr){
-      return Math.pow(produto(arr), 1 / tamanho(arr));
-    }
-    /*mediaHarmonica*/
-    function mediaHarmonica (arr) {
-      return (tamanho(arr) / (arr .map(function (num) {return 1 / num}).reduce(function (a, b) { return a + b })))
-    }
-    /*moda*/
-    function moda (arr){
-      return arr.reduce(
-        function(a, b) { a[b] = (a[b] || 0) + 1;
-      return a;
-    }, {});}
-    /*mediana*/
-    /*tenho que */
-    function mediana (arr){
-    	return (tamanho(arr)+1)/2;
-    }
-    /*maiorNumeroArray*/
-  function maiorNumero (arr){
-  return Math.max.apply(null, arr);
-  }
-  /*menorNumeroArray*/
-  function menorNumero (arr){
-  return Math.min.apply(null, arr);
-  }
-  /*amplitudeTotal*/
-  function amplitudeTotal (arr) {
-    return maiorNumero(arr) - menorNumero(arr);
-  }
-    /*quartilInferior*/
-  function quartilInferior (arr){
-  	return (tamanho(arr)+1)/4;
-  }
-  /*quartilMedio*/
-  function quartilMedio (arr){
-  	return 2*(tamanho(arr)+1)/4;
-  }
-  /*quartilSuperior*/
-  function quartilSuperior (arr){
-  	return 3*(tamanho(arr)+1)/4;
-  }
-  /*decilUm*/
-  function decilUm (arr){
-    return (tamanho(arr)+1)/10;
-  }
-  /*decilDois*/
-  function decilDois (arr){
-    return 2*(tamanho+1)/10;
-  }
-  /*decilCinco*/
-  function decilCinco (arr){
-    return 5*(tamanho(arr)+1)/10;
-  }
-  /*decilNove*/
-  function decilNove (arr){
-    return 9*(tamanho(arr)+1)/10;
-  }
-  /*percentilDez*/
-  function percentilDez (tamanho){
-    return 10*(tamanho+1)/100;
-  }
-  /*percentilDez*/
-  function percentilDez (arr){
-    return 10*(tamanho(arr)+1)/100;
-  }
-  /*percentilVinte*/
-  function percentilVinte (arr){
-    return 20*(tamanho(arr)+1)/100;
-  }
-  /*percentilCinquenta*/
-  function percentilCinquenta (arr){
-    return 50*(tamanho(arr)+1)/100;
-  }
-  /*percentilNoventa*/
-  function percentilNoventa (arr){
-    return 90*(tamanho(arr)+1)/100;
-  }
-/*raizMediaQuadratica*/
-function raizMediaQuadratica (arr) {
-    return Math.sqrt(Math.pow(mediaAritmetica(arr), 2));
-  };
-  /*desvioQuartilico*/
-  function desvioQuartilico (arr){
-  	return (quartilSuperior(arr) - quartilInferior(arr))/2;
-  }
-  /*desvioMedioAbsoluto*/
-  function desvioMedioAbsoluto (arr) {
-    return (1/tamanho(arr))*(arr.map(function(elemen) {
-       return Math.abs(elemen - mediaAritmetica(arr));
-       }).reduce(function (a,b){
-      return (a + b)
-      })
-    )
-  }
-  /*desvioMedianaAbsoluto*/
-  function desvioMedianaAbsoluto (arr) {
-    /*return (1/tamanho(arr))*(arr.map(function(elemen) {
-       return Math.abs(elemen - mediana(arr));
-       }).reduce(function (a,b){
-      return (a + b) ;
-      })
-    );*/
-    return null;
-  }
-  /*amplitudeQuartilitica*/
-  function amplitudeQuartilitica (arr){
-  	return (quartilSuperior(arr) - quartilInferior(arr));
-  }
-  /*semiAmplitudeentrePercentis*/
-  function semiAmplitudeentrePercentis (arr){
-    return (1/2)*(percentilNoventa(arr) - percentilNoventa(arr));
-  }
-  /*amplitudeentrePercentis*/
-  function amplitudeentrePercentis (arr){
-    return (percentilNoventa(arr) - percentilDez(arr));
-  }
-  /*variancia*/
-  function variancia(arr) {
-    return (1/tamanho(arr))*(arr.map(function(elemen) {
-       return Math.pow(Math.abs(elemen - mediaAritmetica(arr)),(2));
-       }).reduce(function (a,b){
-      return (a + b) ;
-      })
-    );
-  }
-  /*desvioPadrao*/
-  function desvioPadrao(arr) {
-    return Math.sqrt(variancia(arr));
+    dp: desvioPadrao,
+    cv: coefiecienteVariancao,
+    zscore: zscore,
+    as1: assimetriaPearson1,
+    as2: assimetriaPearson2,
+    caq: coefiecienteAssimetriaQuartilico,
+    cap: coefiecienteAssimetriaPercentilico
   }
 
-  return fe;
-})();
+ function ordenarArray(arr) {
+  return (arr.sort((a, b) => {
+   return a - b
+  }))
+ }
+
+ function tamanho(arr) {
+  return (arr.length)
+ }
+
+ function somatorio(arr) {
+  return (arr.reduce((a, b) => {
+   return a + b
+  }))
+ }
+
+ function produto(arr) {
+  return arr.reduce((a, b) => {
+   return a * b
+  })
+ }
+
+ function mediaAritmetica(arr) {
+  return (somatorio(arr) / tamanho(arr))
+ }
+
+ function mediaGeometrica(arr) {
+  return Math.pow(produto(arr), 1 / tamanho(arr))
+ }
+
+ function mediaHarmonica(arr) {
+  return (tamanho(arr) / (arr.map((num) => {
+   return 1 / num
+  }).reduce((a, b) => {
+   return a + b
+  })))
+ }
+
+ function moda(arr) {
+  return ((arr.sort((a, b) =>
+          (arr.filter(v => v === a).length) - (arr.filter(v => v === b).length))
+    ).pop())
+ }
+
+ function mediana(arr) {
+  /* Object.values(obj)*/
+  return ((tamanho(arr) + 1) / 2)
+ }
+
+ function maiorNumero(arr) {
+  return (Math.max.apply(null, arr))
+ }
+
+ function menorNumero(arr) {
+  return (Math.min.apply(null, arr))
+ }
+
+ function amplitudeTotal(arr) {
+  return (maiorNumero(arr) - menorNumero(arr))
+ }
+
+ function quartilInferior(arr) {
+  return ((tamanho(arr) + 1) / 4)
+ }
+
+ function quartilMedio(arr) {
+  return (2 * (tamanho(arr) + 1) / 4)
+ }
+
+ function quartilSuperior(arr) {
+  return (3 * (tamanho(arr) + 1) / 4)
+ }
+
+ function decilUm(arr) {
+  return (1 * (tamanho(arr) + 1) / 10)
+ }
+
+ function decilDois(arr) {
+  return (2 * (tamanho + 1) / 10)
+ }
+
+ function decilCinco(arr) {
+  return (5 * (tamanho(arr) + 1) / 10)
+ }
+
+ function decilNove(arr) {
+  return (9 * (tamanho(arr) + 1) / 10)
+ }
+
+ function percentilDez(tamanho) {
+  return (10 * (tamanho + 1) / 100)
+ }
+
+ function percentilDez(arr) {
+  return (10 * (tamanho(arr) + 1) / 100)
+ }
+
+ function percentilVinte(arr) {
+  return (20 * (tamanho(arr) + 1) / 100)
+ }
+
+ function percentilCinquenta(arr) {
+  return (50 * (tamanho(arr) + 1) / 100)
+ }
+
+ function percentilNoventa(arr) {
+  return (90 * (tamanho(arr) + 1) / 100)
+ }
+
+ function raizMediaQuadratica(arr) {
+  return (Math.sqrt(Math.pow(mediaAritmetica(arr), 2)))
+ }
+
+ function desvioQuartilico(arr) {
+  return ((quartilSuperior(arr) - quartilInferior(arr)) / 2)
+ }
+
+ function desvioMedioAbsoluto(arr) {
+  return ((1 / tamanho(arr)) * (arr.map((elemen) => {
+   return (Math.abs(elemen - mediaAritmetica(arr)))
+  }).reduce((a, b) => {
+   return (a + b)
+  })))
+ }
+
+ function desvioMedianaAbsoluto(arr) {
+  return (null)
+ }
+
+ function amplitudeQuartilitica(arr) {
+  return (quartilSuperior(arr) - quartilInferior(arr))
+ }
+
+ function semiAmplitudeentrePercentis(arr) {
+  return ((1 / 2) * (percentilNoventa(arr) - percentilNoventa(arr)))
+ }
+
+ function amplitudeentrePercentis(arr) {
+  return (percentilNoventa(arr) - percentilDez(arr))
+ }
+
+ function variancia(arr) {
+  return ((1 / tamanho(arr)) * (arr.map((elemen) => {
+   return (Math.pow(Math.abs(elemen - mediaAritmetica(arr)), (2)))
+  }).reduce((a, b) => {
+   return (a + b)
+  })))
+ }
+
+ function desvioPadrao(arr) {
+  return (Math.sqrt(variancia(arr)))
+ }
+
+ function coefiecienteVariancao(arr) {
+  return (desvioPadrao(arr) / (mediaAritmetica(arr)) * 100)
+ }
+
+ function zscore(arr) {
+   return (mediaAritmetica(arr) - mediaAritmetica(arr)/desvioPadrao(arr))
+ }
+
+function assimetriaPearson1(arr) {
+  return (mediaAritmetica(arr) - moda(arr)/desvioPadrao(arr))
+}
+function assimetriaPearson2(arr) {
+  return 3*(mediaAritmetica(arr)-mediana(arr[key])/desvioPadrao(arr))
+}
+function coefiecienteAssimetriaQuartilico (arr) {
+  return (quartilSuperior(arr) - 2 * (quartilMedio(arr) + quartilInferior(arr)) / quartilSuperior(arr) - quartilInferior(arr))
+}
+function coefiecienteAssimetriaPercentilico (arr) {
+  return (percentilNoventa(arr) - 2 * (percentilCinquenta(arr) + percentilDez(arr)) /
+   percentilNoventa(arr) - percentilDez(arr))
+}
+
+ return fe
+})()
