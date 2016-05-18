@@ -16,17 +16,9 @@ fe = (function() {
     amplQ: amplitudeQuartilitica,
     amplP: amplitudeentrePercentis,
     sap: semiAmplitudeentrePercentis,
-    q1: quartilInferior,
-    q2: quartilMedio,
-    q3: quartilSuperior,
-    d1: decilUm,
-    d2: decilDois,
-    d5: decilCinco,
-    d9: decilNove,
-    p10: percentilDez,
-    p20: percentilVinte,
-    p50: percentilCinquenta,
-    p90: percentilNoventa,
+    quartil: quartil,
+    decil: decil,
+    percentil: percentil,
     rmq: raizMediaQuadratica,
     desvioQ: desvioQuartilico,
     dma: desvioMedioAbsoluto,
@@ -38,7 +30,8 @@ fe = (function() {
     as1: assimetriaPearson1,
     as2: assimetriaPearson2,
     caq: coefiecienteAssimetriaQuartilico,
-    cap: coefiecienteAssimetriaPercentilico
+    cap: coefiecienteAssimetriaPercentilico,
+
   }
 
  function ordenarArray(arr) {
@@ -101,93 +94,112 @@ fe = (function() {
  function amplitudeTotal(arr) {
   return (maiorNumero(arr) - menorNumero(arr))
  }
+ /* Quartis*/
 
- function quartilInferior(arr) {
-  return ((tamanho(arr) + 1) / 4)
+ function quartil(arr,Q) {
+   var B = (tamanho(arr) + 1) / 4;
+   var quartis = {
+     '3': function () {
+       return (3 * B)
+     },
+     '2': function () {
+       return (mediana(arr))
+     },
+     '1': function () {
+       return (1 * B)
+     },
+   };
+   if (typeof quartis[Q] !== 'function') {
+      throw new Error('Quartil invalido');
+    }
+   return quartis [Q]();
  }
 
- function quartilMedio(arr) {
-  return (2 * (tamanho(arr) + 1) / 4)
+ function amplitudeQuartilitica(arr) {
+  return (quartil(arr, 3) - quartil(arr, 1))
  }
 
- function quartilSuperior(arr) {
-  return (3 * (tamanho(arr) + 1) / 4)
+ function desvioQuartilico(arr) {
+  return (amplitudeQuartilitica(arr) / 2)
  }
 
- function decilUm(arr) {
-  return (1 * (tamanho(arr) + 1) / 10)
+ function decil(arr,D) {
+   var B = (tamanho(arr) + 1) / 10;
+   var decis = {
+     '9': function () {
+       return (9 * B)
+     },
+     '5': function () {
+       return (quartil(arr, 2))
+     },
+     '2': function () {
+       return (2 * B)
+     },
+     '1': function () {
+       return (1 * B)
+     },
+   };
+   if (typeof decis[D] !== 'function') {
+      throw new Error('Decil invalido');
+    }
+   return decis [D]();
  }
 
- function decilDois(arr) {
-  return (2 * (tamanho + 1) / 10)
+/* inserir um validador de P onde permita o usuario calcular qualquer valor*/
+ function percentil(arr,P) {
+   var arr = ordenarArray(arr)
+   var B = (tamanho(arr) + 1) / 100;
+   var percentis = {
+     '90': function () {
+       return (90 * B)
+     },
+     '50': function () {
+       return (decil(arr, 5))
+     },
+     '20': function () {
+       return (20 * B)
+     },
+     '10': function () {
+       return (decil(arr, 10))
+     },
+   };
+   if (typeof percentis[P] !== 'function') {
+      throw new Error('Percentil invalido');
+    }
+   return percentis [P]();
  }
-
- function decilCinco(arr) {
-  return (5 * (tamanho(arr) + 1) / 10)
- }
-
- function decilNove(arr) {
-  return (9 * (tamanho(arr) + 1) / 10)
- }
-
- function percentilDez(tamanho) {
-  return (10 * (tamanho + 1) / 100)
- }
-
- function percentilDez(arr) {
-  return (10 * (tamanho(arr) + 1) / 100)
- }
-
- function percentilVinte(arr) {
-  return (20 * (tamanho(arr) + 1) / 100)
- }
-
- function percentilCinquenta(arr) {
-  return (50 * (tamanho(arr) + 1) / 100)
- }
-
- function percentilNoventa(arr) {
-  return (90 * (tamanho(arr) + 1) / 100)
+ function amplitudeentrePercentis(arr) {
+  return (percentil(arr, 9) - percentil(arr, 1))
  }
 
  function raizMediaQuadratica(arr) {
   return (Math.sqrt(Math.pow(mediaAritmetica(arr), 2)))
  }
 
- function desvioQuartilico(arr) {
-  return ((quartilSuperior(arr) - quartilInferior(arr)) / 2)
- }
 
- function desvioMedioAbsoluto(arr) {
-  return ((1 / tamanho(arr)) * (arr.map((elemen) => {
-   return (Math.abs(elemen - mediaAritmetica(arr)))
-  }).reduce((a, b) => {
-   return (a + b)
-  })))
+ function desvioMedioAbsoluto(arr,x) {
+   var x = x
+   return ((1 / tamanho(arr)) * (arr.map((elemen) => {
+    return (Math.pow(Math.abs(elemen - mediaAritmetica(arr)), (x)))
+   }).reduce((a, b) => {
+    return (a + b)
+   })))
  }
 
  function desvioMedianaAbsoluto(arr) {
   return (null)
  }
 
- function amplitudeQuartilitica(arr) {
-  return (quartilSuperior(arr) - quartilInferior(arr))
- }
+
 
  function semiAmplitudeentrePercentis(arr) {
   return ((1 / 2) * (percentilNoventa(arr) - percentilNoventa(arr)))
  }
 
- function amplitudeentrePercentis(arr) {
-  return (percentilNoventa(arr) - percentilDez(arr))
- }
+
 
  function variancia(arr) {
-  return ((1 / tamanho(arr)) * (arr.map((elemen) => {
-   return (Math.pow(Math.abs(elemen - mediaAritmetica(arr)), (2)))
-  }).reduce((a, b) => {
-   return (a + b)
-  })))
+  return desvioMedioAbsoluto(arr,2)
  }
 
  function desvioPadrao(arr) {
