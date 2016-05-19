@@ -78,10 +78,14 @@ fe = (function() {
     ).pop())
  }
 
- function mediana(arr) {
-  /* Object.values(obj)*/
-  return ((tamanho(arr) + 1) / 2)
- }
+ function median(arr) {
+  ordenarArray(arr)
+  var meio = Math.floor(values.length/2);
+    if(values.length % 2)
+        return values[meio];
+    else
+        return (values[meio-1] + values[meio]) / 2.0;
+}
 
  function maiorNumero(arr) {
   return (Math.max.apply(null, arr))
