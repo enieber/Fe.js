@@ -38,7 +38,6 @@ fe = (function () {
 
   }
 
-<<<<<<< HEAD
   function ordenarArray (arr) {
     return (arr.sort((a, b) => {
       return a - b
@@ -87,7 +86,7 @@ fe = (function () {
   /* Object.values(obj)*/
     return ((tamanho(arr) + 1) / 2)
   }
-=======
+
  function ordenarArray(arr) {
   return (arr.sort((a, b) => {
    return a - b
@@ -229,7 +228,7 @@ fe = (function () {
  function amplitudeentrePercentis(arr) {
   return (percentil(arr, 9) - percentil(arr, 1))
  }
->>>>>>> fd4257020a85ae6e88d54e5cfae1ab0eb3a1568f
+
 
   function maiorNumero (arr) {
     return (Math.max.apply(null, arr))
