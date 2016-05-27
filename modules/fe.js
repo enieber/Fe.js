@@ -40,10 +40,10 @@ module.exports = (function () {
 
   }
 
-
-  function mediaAritmetica (arr) {
-    return (somatorio(arr) / tamanho(arr))
-  }
+  Math.__proto__.fe = fe;
+  // function mediaAritmetica (arr) {
+  //   return (somatorio(arr) / tamanho(arr))
+  // }
 
   function mediaGeometrica (arr) {
     return Math.pow(produto(arr), 1 / tamanho(arr))

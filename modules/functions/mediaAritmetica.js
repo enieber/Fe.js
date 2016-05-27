@@ -1,0 +1,1 @@
+module.exports = (arr) => Math.fe.soma(arr) / Math.fe.tam(arr);
