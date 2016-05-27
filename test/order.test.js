@@ -7,7 +7,6 @@ Math.__proto__.fe = require('../modules/fe');
 describe('Testando order', () => {
   let _returns = [];
   it('Array deve ser ordenado do menor para o maior', () => {
-    // console.log('Math.fe.order(arr)', Math.fe.order(arr))
     const _in = [9,8,7,3];
     const _base = [9,8,7,3];
     const _return = Math.fe.order(_in);
