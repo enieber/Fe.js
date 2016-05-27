@@ -5,7 +5,8 @@ module.exports = (function () {
     order: require('./functions/order'),
     tam: require('./functions/tam'),
     soma: require('./functions/soma'),
-    prod: produto,
+    // prod: produto,
+    produto: require('./functions/produto'),
     mediaA: mediaAritmetica,
     mediaG: mediaGeometrica,
     mediaH: mediaHarmonica,
@@ -55,11 +56,11 @@ module.exports = (function () {
   //   }))
   // }
 
-  function produto (arr) {
-    return arr.reduce((a, b) => {
-      return a * b
-    })
-  }
+  // function produto (arr) {
+  //   return arr.reduce((a, b) => {
+  //     return a * b
+  //   })
+  // }
 
   function mediaAritmetica (arr) {
     return (somatorio(arr) / tamanho(arr))
