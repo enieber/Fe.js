@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/wdiasvargas/Fe.js/issues"
   },
-  "homepage": "https://github.com/wdiasvargas/Fe.js#readme"
+  "homepage": "https://github.com/wdiasvargas/Fe.js#readme",
+  "dependencies": {
+    "chai": "^3.5.0"
+  }
 }
