@@ -1,7 +1,8 @@
 module.exports = (function () {
   'use strict'
   var fe = {
-    order: ordenarArray,
+    // order: ordenarArray,
+    order: require('./functions/order'),
     tam: tamanho,
     soma: somatorio,
     prod: produto,
@@ -38,11 +39,11 @@ module.exports = (function () {
 
   }
 
-  function ordenarArray (arr) {
-    return (arr.sort((a, b) => {
-      return a - b
-    }))
-  }
+  // function ordenarArray (arr) {
+  //   return (arr.sort((a, b) => {
+  //     return a - b
+  //   }))
+  // }
 
   function tamanho (arr) {
     return (arr.length)
