@@ -40,27 +40,6 @@ module.exports = (function () {
 
   }
 
-  // function ordenarArray (arr) {
-  //   return (arr.sort((a, b) => {
-  //     return a - b
-  //   }))
-  // }
-
-  // function tamanho (arr) {
-  //   return (arr.length)
-  // }
-
-  // function somatorio (arr) {
-  //   return (arr.reduce((a, b) => {
-  //     return a + b
-  //   }))
-  // }
-
-  // function produto (arr) {
-  //   return arr.reduce((a, b) => {
-  //     return a * b
-  //   })
-  // }
 
   function mediaAritmetica (arr) {
     return (somatorio(arr) / tamanho(arr))
