@@ -3,7 +3,7 @@ module.exports = (function () {
   var fe = {
     // order: ordenarArray,
     order: require('./functions/order'),
-    tam: tamanho,
+    tam: require('./functions/tam'),
     soma: somatorio,
     prod: produto,
     mediaA: mediaAritmetica,
@@ -45,9 +45,9 @@ module.exports = (function () {
   //   }))
   // }
 
-  function tamanho (arr) {
-    return (arr.length)
-  }
+  // function tamanho (arr) {
+  //   return (arr.length)
+  // }
 
   function somatorio (arr) {
     return (arr.reduce((a, b) => {
