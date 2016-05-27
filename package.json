@@ -1,0 +1,26 @@
+{
+  "name": "fe.js",
+  "version": "0.0.1",
+  "description": "Funções de estatística",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "chai test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wdiasvargas/Fe.js.git"
+  },
+  "keywords": [
+    "estatística",
+    "matemática"
+  ],
+  "author": "wdiasvargas e suissa",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/wdiasvargas/Fe.js/issues"
+  },
+  "homepage": "https://github.com/wdiasvargas/Fe.js#readme"
+}
