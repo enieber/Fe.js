@@ -7,8 +7,8 @@ module.exports = (function () {
     soma: require('./functions/soma'),
     // prod: produto,
     produto: require('./functions/produto'),
-    mediaA: mediaAritmetica,
-    mediaG: mediaGeometrica,
+    mediaA: require('./functions/mediaAritmetica'),
+    mediaG: require('./functions/mediaGeometrica'),
     mediaH: mediaHarmonica,
     moda: moda,
     mediana: mediana,
@@ -45,9 +45,9 @@ module.exports = (function () {
   //   return (somatorio(arr) / tamanho(arr))
   // }
 
-  function mediaGeometrica (arr) {
-    return Math.pow(produto(arr), 1 / tamanho(arr))
-  }
+  // function mediaGeometrica (arr) {
+  //   return Math.pow(produto(arr), 1 / tamanho(arr))
+  // }
 
   function mediaHarmonica (arr) {
     return (tamanho(arr) / (arr.map((num) => {
