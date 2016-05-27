@@ -4,7 +4,7 @@ module.exports = (function () {
     // order: ordenarArray,
     order: require('./functions/order'),
     tam: require('./functions/tam'),
-    soma: somatorio,
+    soma: require('./functions/soma'),
     prod: produto,
     mediaA: mediaAritmetica,
     mediaG: mediaGeometrica,
@@ -49,11 +49,11 @@ module.exports = (function () {
   //   return (arr.length)
   // }
 
-  function somatorio (arr) {
-    return (arr.reduce((a, b) => {
-      return a + b
-    }))
-  }
+  // function somatorio (arr) {
+  //   return (arr.reduce((a, b) => {
+  //     return a + b
+  //   }))
+  // }
 
   function produto (arr) {
     return arr.reduce((a, b) => {
