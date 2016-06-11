@@ -9,13 +9,13 @@ fe = (function () {
     mediaG: mediaGeometrica,
     mediaH: mediaHarmonica,
     moda: moda,
-    mediana: median,
+    median: median,
     maior: maiorNumero,
     menor: menorNumero,
     amplT: amplitudeTotal,
     amplQ: amplitudeQuartilitica,
-    amplP: amplitudeentrePercentis,
-    sap: semiAmplitudeentrePercentis,
+    amplP: amplitudePercentilica,
+    sap: semiAmplitudePercentilica,
     quartil: quartil,
     decil: decil,
     percentil: percentil,
@@ -31,6 +31,9 @@ fe = (function () {
     as2: assimetriaPearson2,
     caq: coefiecienteAssimetriaQuartilico,
     cap: coefiecienteAssimetriaPercentilico,
+    cpc: coefiecientePercentilicoCurtose,
+    cma: coefiecienteMomentoAssimetria,
+    cab: coefiecienteAssimetriaBowley,
     momentoUm: momentoUm,
     momentoDois: momentoDois,
     momentoTres: momentoTres,
@@ -220,8 +223,8 @@ fe = (function () {
     }
    return percentis [P]();
  }
- function amplitudeentrePercentis(arr) {
-  return (percentil(arr, 9) - percentil(arr, 1))
+ function amplitudePercentilica(arr) {
+  return (percentil(arr, 90) - percentil(arr, 10))
  }
 
 
@@ -302,7 +305,7 @@ fe = (function () {
         return (20 * B)
       },
       '10': function () {
-        return (decil(arr, 10))
+        return (decil(arr, 1))
       }
     }
     if (typeof percentis[P] !== 'function') {
@@ -310,28 +313,36 @@ fe = (function () {
     }
     return percentis [P]()
   }
-  function amplitudeentrePercentis (arr) {
-    return (percentil(arr, 9) - percentil(arr, 1))
+  function amplitudePercentilica (arr) {
+    return (percentil(arr, 90) - percentil(arr, 10))
   }
 
   function raizMediaQuadratica (arr) {
     return (Math.sqrt(Math.pow(mediaAritmetica(arr), 2)))
   }
-  function desvioMedioAbsoluto (arr, x) {
-    var r = x
-    return ((1 / tamanho(arr)) * (arr.map((elemen) => {
-      return (Math.pow(Math.abs(elemen - mediaAritmetica(arr)), (r)))
-    }).reduce((a, b) => {
-      return (a + b)
-    })))
+  function desvioMedioAbsoluto (arr, r) {
+    var med = mediaAritmetica(arr);
+    var tam = 1/tamanho(arr);
+    var maparr = (arr.map((elemen) => { return (Math.pow(Math.abs(elemen - med ), (r)))}).reduce((a, b) => {return (a + b) }))
+    return tam * maparr
   }
 
   function desvioMedianaAbsoluto (arr) {
-    return (null)
-  }
+    var me = median(arr);
+    var tam = 1/tamanho(arr);
+    var maparr = arr.map(function(elemen){
+      return Math.abs(elemen - me)
+    }).reduce((a,b)=>{
+      return a+b
+    });
+    return tam * maparr
+    }
 
-  function semiAmplitudeentrePercentis (arr) {
-    return ((1 / 2) * (percentil(arr, 90) - percentil(arr, 10)))
+  function semiAmplitudePercentilica (arr) {
+    var p90 = percentil(arr,90);
+    var p10 = percentil(arr,10);
+    var meio = 1/2
+    return (meio * (p90 - p10))
   }
 
   function variancia (arr) {
@@ -342,25 +353,60 @@ fe = (function () {
     return (Math.sqrt(variancia(arr)))
   }
   function coefiecienteVariancao (arr) {
-    return (desvioPadrao(arr) / (mediaAritmetica(arr)) * 100)
+    var desvp = desvioPadrao(arr);
+    var med = mediaAritmetica(arr)
+    return ((desvp / (med)) * 100 + "%")
   }
-
+  function coefiecientePercentilicoCurtose(arr) {
+    var q3 = quartil(arr,3)
+    var q1 = quartil(arr,1)
+    var p90 = percentil(arr,90)
+    var p10 = percentil(arr,10)
+    return ((q3-q1)/(2*(p90-p10)))
+  }
+  function coefiecienteMomentoAssimetria(arr) {
+    return momentoTres(arr)/Math.sqrt(Math.pow((momentoDois(arr)),3))
+  }
+function coefiecienteAssimetriaBowley(arr) {
+  var q3 = quartil(arr,3)
+  var q1 = quartil(arr,1)
+  var me = median(arr);
+  return ((q1+q3)-(2 * me))/(q3-q1)
+}
   function zscore (arr) {
-    return (mediaAritmetica(arr) - mediaAritmetica(arr) / desvioPadrao(arr))
+    var med = mediaAritmetica(arr);
+    var desvp = desvioPadrao(arr);
+    var maparr = arr.map(function(elemen){
+      return Math.abs(elemen - med)
+    }).reduce((a,b)=>{
+      return a+b
+    });
+    return (maparr / desvp)
   }
 
   function assimetriaPearson1 (arr) {
-    return (mediaAritmetica(arr) - moda(arr) / desvioPadrao(arr))
+    var me = mediaAritmetica(arr);
+    var mode = moda(arr);
+    var desvp = desvioPadrao(arr)
+    return (me - mode / desvp)
   }
   function assimetriaPearson2 (arr) {
-    return 3 * (mediaAritmetica(arr) - median(arr) / desvioPadrao(arr))
+    var me = mediaAritmetica(arr);
+    var med = median(arr);
+    var mode = moda(arr);
+    var desvp = desvioPadrao(arr);
+    return 3 * (me - med / desvp)
   }
   function coefiecienteAssimetriaQuartilico (arr) {
-    return (quartil(arr, 3) - 2 * (quartil(arr, 3) + quartil(arr, 1)) / quartil(arr, 3) - quartil(arr, 1))
+    var q3 = quartil(arr,3)
+    var q1 = quartil(arr,1)
+    return (q3 - 2 * (q3 + q1)) / q3 - q1
   }
   function coefiecienteAssimetriaPercentilico (arr) {
-    return (percentil(arr, 90) - 2 * (percentil(arr, 50) + percentil(arr, 10)) /
-    percentil(arr, 90) - percentil(arr, 10))
+    var p90 = percentil(arr,90);
+    var p50 = percentil(arr,10);
+    var p10 = percentil(arr,10);
+    return (p90 - 2 * (p50) + p10) / p90 - p10
   }
   function momentoUm (arr) {
     return mediaAritmetica(arr)
