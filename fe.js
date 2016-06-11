@@ -9,7 +9,7 @@ fe = (function () {
     mediaG: mediaGeometrica,
     mediaH: mediaHarmonica,
     moda: moda,
-    mediana: mediana,
+    mediana: median,
     maior: maiorNumero,
     menor: menorNumero,
     amplT: amplitudeTotal,
@@ -82,11 +82,6 @@ fe = (function () {
   ).pop())
   }
 
-  function mediana (arr) {
-  /* Object.values(obj)*/
-    return ((tamanho(arr) + 1) / 2)
-  }
-
  function ordenarArray(arr) {
   return (arr.sort((a, b) => {
    return a - b
@@ -132,12 +127,12 @@ fe = (function () {
  }
 
  function median(arr) {
-  ordenarArray(arr)
-  var meio = Math.floor(values.length/2);
-    if(values.length % 2)
-        return values[meio];
+  arr.sort( function(a,b) {return a - b;} );
+  var meio = Math.floor(arr.length/2);
+    if(arr.length % 2)
+        return arr[meio];
     else
-        return (values[meio-1] + values[meio]) / 2.0;
+        return (arr[meio-1] + arr[meio]) / 2.0;
 }
 
  function maiorNumero(arr) {
@@ -160,7 +155,7 @@ fe = (function () {
        return (3 * B)
      },
      '2': function () {
-       return (mediana(arr))
+       return (median(arr))
      },
      '1': function () {
        return (1 * B)
@@ -250,7 +245,7 @@ fe = (function () {
         return (3 * B)
       },
       '2': function () {
-        return (mediana(arr))
+        return (median(arr))
       },
       '1': function () {
         return (1 * B)
@@ -358,7 +353,7 @@ fe = (function () {
     return (mediaAritmetica(arr) - moda(arr) / desvioPadrao(arr))
   }
   function assimetriaPearson2 (arr) {
-    return 3 * (mediaAritmetica(arr) - mediana(arr) / desvioPadrao(arr))
+    return 3 * (mediaAritmetica(arr) - median(arr) / desvioPadrao(arr))
   }
   function coefiecienteAssimetriaQuartilico (arr) {
     return (quartil(arr, 3) - 2 * (quartil(arr, 3) + quartil(arr, 1)) / quartil(arr, 3) - quartil(arr, 1))
