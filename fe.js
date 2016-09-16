@@ -25,7 +25,7 @@ fe = (function () {
     mda: desvioMedianaAbsoluto,
     varian: variancia,
     dp: desvioPadrao,
-    cv: coefiecienteVariancao,
+    cv: coefiecienteVariacao,
     zscore: zscore,
     as1: assimetriaPearson1,
     as2: assimetriaPearson2,
@@ -352,7 +352,7 @@ fe = (function () {
   function desvioPadrao (arr) {
     return (Math.sqrt(variancia(arr)))
   }
-  function coefiecienteVariancao (arr) {
+  function coefiecienteVariacao (arr) {
     var desvp = desvioPadrao(arr);
     var med = mediaAritmetica(arr)
     return ((desvp / (med)) * 100 + "%")
