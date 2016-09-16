@@ -388,14 +388,14 @@ function coefiecienteAssimetriaBowley(arr) {
     var me = mediaAritmetica(arr);
     var mode = moda(arr);
     var desvp = desvioPadrao(arr)
-    return (me - mode / desvp)
+    return (me - mode) / desvp
   }
   function assimetriaPearson2 (arr) {
     var me = mediaAritmetica(arr);
     var med = median(arr);
     var mode = moda(arr);
     var desvp = desvioPadrao(arr);
-    return 3 * (me - med / desvp)
+    return (3 * (me - med)) / desvp
   }
   function coefiecienteAssimetriaQuartilico (arr) {
     var q3 = quartil(arr,3)
