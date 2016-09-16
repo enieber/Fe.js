@@ -34,10 +34,10 @@ fe = (function () {
     cpc: coefiecientePercentilicoCurtose,
     cma: coefiecienteMomentoAssimetria,
     cab: coefiecienteAssimetriaBowley,
-    momentoUm: momentoUm,
-    momentoDois: momentoDois,
-    momentoTres: momentoTres,
-    momentoQuatro: momentoQuatro
+    momentoUm,
+    momentoDois,
+    momentoTres,
+    momentoQuatro
 
   }
 
